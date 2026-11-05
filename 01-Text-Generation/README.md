@@ -1,37 +1,41 @@
-# Stage 1: Markov Chain Text Generator
+# AigenKuest
+## Stage 1: Markov Chain Text Generator
 
-## About This Stage
+### 1. About the Project
 
-This is the first stage of **AigenKuest**, a project focused on exploring the mathematical foundations of information retrieval and understanding how search engines work through practical implementation.
+AigenKuest is a project focused on exploring the mathematical foundations of information retrieval and understanding how search engines work through practical implementation.
 
-In this stage, I built a simple text generator using Python and Markov Chains. The aim was to understand how a computer can learn patterns in text, calculate the probability of word transitions, and generate sentences based on previously observed sequences.
+This is the first stage of the project. It focuses on building a simple text generator using Python and Markov Chains.
+
+The goal was to understand how a computer can learn patterns in text, calculate probabilities of word transitions, and generate sentences based on previously observed sequences.
 
 Rather than treating this as just a programming exercise, I wanted to understand the mathematics behind the process.
 
-## Mathematical Concepts Explored
+### 2. Mathematical Concepts Explored
 
 - Markov Chains
 - Conditional Probability
 - Transition Probabilities
 - Transition Matrices
 - Stationary Distributions
-- Long-run behaviour of Markov Chains
+- Long-run Behaviour of Markov Chains
 
-## How It Works
+### 3. How It Works
 
 The model follows these basic steps:
 
-1. **Text Processing:** The input text is cleaned by converting words to lowercase and removing punctuation.
-2. **Word Counting:** The frequency of words and their occurrences is determined.
-3. **Transition Mapping:** The model identifies which words follow other words and counts these transitions.
-4. **Probability Calculation:** Transition frequencies are converted into probabilities.
-5. **Text Generation:** Given a starting word, the model selects subsequent words based on their transition probabilities to generate a sentence.
+1. **Text Extraction:** Extracts text from an uploaded PDF document.
+2. **Text Processing:** Converts text to lowercase and removes punctuation.
+3. **Word Counting:** Determines the frequency of words in the document.
+4. **Transition Mapping:** Identifies which words follow other words and counts these transitions.
+5. **Probability Calculation:** Converts transition frequencies into probabilities.
+6. **Text Generation:** Uses the calculated transition probabilities to generate sentences from a starting word.
 
-The model learns from the text supplied to it. It does not generate sentences by understanding their meaning but by using patterns and probabilities observed in the input.
+The model learns from the text supplied to it. It does not understand the meaning of sentences; it generates text based on patterns and probabilities observed in the document.
 
-## Dataset and Source
+### 4. Dataset and Source
 
-For this implementation, I used a book obtained from **Project Gutenberg**, an online library providing access to free electronic books.
+For this implementation, I used a book obtained from **Project Gutenberg**, an online library that provides access to free electronic books.
 
 I selected an openly accessible book and converted its original format into PDF for use in the project.
 
@@ -39,82 +43,82 @@ The PDF served as the text source from which the model learned word transitions.
 
 Project Gutenberg: https://www.gutenberg.org/
 
-*Note: The availability and copyright status of individual books may differ. Check the book's usage conditions before redistributing its contents.*
+*Note: The copyright and usage conditions of individual books may differ. Check the relevant terms before redistributing a book or its contents.*
 
-## How to Use the Notebook
+### 5. How to Use the Notebook
 
-You can run this notebook using Google Colab.
+The notebook is designed to run on Google Colab.
 
-### 1. Open the Notebook
+#### A. Upload Your Own Document
 
-Open the notebook provided in this folder using Google Colab.
+The project uses Google Colab's file upload functionality and the `pypdf` library to extract text from PDF documents.
 
-### 2. Upload Your Own Document
+To use your own book or document:
 
-You can replace the original book with your own text document.
+1. Open the notebook in Google Colab.
+2. Locate and run the file upload cell.
+3. Select a PDF document from your device.
+4. Wait for the upload to complete.
+5. Run the remaining cells.
 
-In Google Colab:
+The notebook automatically detects the uploaded filename, so you do not need to rename your document or manually change the filename in the code.
 
-1. Locate the file upload section in the notebook.
-2. Upload your document from your device.
-3. Ensure that the filename in your code matches the uploaded file's name.
-
-For example, if your uploaded file is called `my_book.pdf`, use that filename wherever the original PDF filename is referenced.
-
-**Supported document formats:**
-
+**Supported format:**
 - PDF (`.pdf`)
-- Plain text (`.txt`)
 
-Other formats, such as Word documents (`.docx`), may also be used, but you will need an appropriate text extraction method before passing the extracted text into the model.
+Other formats, such as `.txt` and `.docx`, require different text-reading methods before their contents can be processed by the model.
 
-For example, PDFs can be processed using a PDF text extraction library, while plain text files can be read directly in Python.
+**Important:** Use a PDF containing selectable text. Scanned PDFs may require OCR (Optical Character Recognition) before their contents can be extracted.
 
-### 3. Change the Word Used for Testing
+#### B. Test Different Words
 
-The notebook allows you to investigate the possible next words following a particular word.
+The notebook allows you to investigate the possible next words following a particular word in your uploaded document.
 
-For example, you may have used:
+For demonstration, the word `law` was used.
 
-`love`
+To test another word, locate the testing section and change:
 
-To investigate another word, simply replace `love` with your preferred word in the relevant code cell.
+`test_word = "law"`
+
+to your preferred word.
 
 For example:
 
-`transitions["love"]`
+`test_word = "love"`
 
-can be changed to:
+The model will display:
+- The words that follow the selected word.
+- The frequency of each observed transition.
+- The probability of each possible next word.
 
-`transitions["mathematics"]`
+**Understanding the probability**
 
-This allows you to examine the transitions and probabilities associated with different words in your document.
+The transition probability is calculated as:
 
-**Important:** The word you choose must exist in the processed text and have at least one observed word transition. Otherwise, the model may return an empty result or encounter a key error, depending on the code used.
+P(Next word | Current word) = Frequency of the transition / Total outgoing transitions from the current word.
 
-### 4. Generate Text
+For example, if `law` is followed by `of` in every recorded transition, the probability of moving from `law` to `of` is 1.0.
 
-You can also experiment with different starting words when generating sentences.
+**Note:** The selected word must have at least one recorded outgoing transition in the processed text. Otherwise, the notebook will indicate that no recorded transitions are available.
 
-Change the starting word in the text-generation section of the notebook to explore how different starting points produce different sentences.
-
-## Tools and Technologies
+### 6. Tools and Technologies
 
 - Python
 - Google Colab
-- NumPy (where applicable)
-- PDF text extraction
+- pypdf
 - Markov Chain modelling
 
-## What I Learned
+### 7. What I Learned
 
 This stage helped me connect programming with mathematical concepts, particularly probability and Markov Chains.
 
-One important insight was understanding the difference between word frequency and a stationary distribution. Word frequency tells us how often a word occurs, while a stationary distribution describes the long-run behaviour of a Markov process.
+One important insight was understanding the difference between word frequency and a stationary distribution.
+
+Word frequency tells us how often a word occurs, while a stationary distribution describes the long-run behaviour of a Markov process.
 
 It was also an opportunity to practise text processing, dictionaries, nested data structures, loops and probability calculations in Python.
 
-## Project Progress
+### 8. Project Progress
 
 **Stage 1: Markov Chain Text Generator — Completed.**
 
@@ -123,3 +127,7 @@ It was also an opportunity to practise text processing, dictionaries, nested dat
 The next stage will explore how Markov Chains, transition matrices, eigenvalues and eigenvectors can be applied to ranking web pages.
 
 The broader goal is to gradually build an understanding of how search engines work, starting from their mathematical foundations.
+
+---
+
+*AigenKuest — Exploring the mathematics behind search engines, one stage at a time.*
